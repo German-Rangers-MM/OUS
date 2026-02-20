@@ -23,6 +23,7 @@ _whitelistedMods = 	[
 						"@Fifty Shades of Female (formerly FEMAL3 Heads)", "374775446",
 						"@Fifty Shades of Gen3 (formerly FEMAL3 Uniforms)", "374780664",
 						"@MT-LB - The Soviet Workhorse", "3615518979",
+						"@Immersion Cigs - Rewrite", "3375788189",
 
 						// Missionmaker Mods
 						"@3den Enhanced", "623475643",
