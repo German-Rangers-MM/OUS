@@ -1,0 +1,55 @@
+name: "Pull Request Labeler"
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+   
+jobs:
+  label-auto:
+    # Only runs for automatic pull_request_target events
+    if: github.event_name == 'pull_request_target'
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v5
+      with:
+        pull-request-number: ${{ github.event.number }}
+
+  label-new-mission:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # needed to compare against base branch
+
+      - name: Check for newly added name.name folders
+        id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            const addedFolders = files
+              .filter(f => f.status === 'added')
+              .map(f => f.filename.split('/')[0])  // top‑level folder
+              .filter(name => /^[^.]+[.][^.]+$/.test(name));  // matches "name.name"
+
+            const hasNewMission = addedFolders.length > 0;
+            core.setOutput('has_new_mission', hasNewMission);
+            if (hasNewMission) {
+              console.log('New mission folder detected:', [...new Set(addedFolders)]);
+            }
+
+      - name: Add label if new mission found
+        if: steps.check.outputs.has_new_mission == 'true'
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: |
+            new-mission

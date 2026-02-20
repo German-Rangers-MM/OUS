@@ -24,14 +24,6 @@ categories:
     labels:
       - 'Packlisten-Update'
 
-  - title: '🚚 Limakisten-Updates'
-    labels:
-      - 'Limakisten-Update'
-
-  - title: '📂 Script-Updates'
-    labels:
-      - 'Script-Update'
-
   - title: '🍵 Documentation-Updates'
     labels:
       - 'Documentation'
