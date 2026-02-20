@@ -1,0 +1,64 @@
+diag_log text "";
+diag_log text format["|=============================   %1   =============================|", missionName];
+diag_log text "";
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//						Multiplayer Settings
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+
+enableRadio false;
+if (isMultiplayer) then {enableSaving [false, false]};
+enableTeamswitch false;
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//						Freund / Feind
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+
+east setFriend [civilian,1];
+civilian setFriend [east,1];
+west setFriend [civilian,1];
+civilian setFriend [west,1];
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//						Debug Optionen
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+
+//onMapSingleClick "player setpos _pos";
+//player allowDamage false;
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//						Zeus Verfügbarkeit
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+	
+[] spawn {
+        {
+            _x addCuratorEditableObjects [allUnits, true];
+            _x addCuratorEditableObjects [vehicles, true];
+            _x addCuratorEditableObjects [allUnitsUAV, true];
+            _x addCuratorEditableObjects [allMines, true];
+        } forEach allCurators;
+    };
+/*
+[] spawn {
+        {
+            _x addCuratorAddons [];
+            _x addCuratorEditingArea [_forEachIndex, position getAssignedCuratorUnit _x, 150];
+        } forEach [rp1];
+    };
+*/
