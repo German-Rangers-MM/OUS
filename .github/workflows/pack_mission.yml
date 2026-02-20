@@ -74,12 +74,19 @@ jobs:
           
           echo "Packed and tagged missions:"
           ls -lh ./pbos/
+
+          cd pbos
+          echo "Making compressed archive of pbos directory..."
+          zip -r ../pbos_${{ steps.version.outputs.version }}.zip ./*
+          echo "Archive created: pbos_${{ steps.version.outputs.version }}.zip"
+
+
           
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.release.tag_name || steps.get-release.outputs.tag }}
           files: |
-            pbos/*.pbo
+            pbos/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
