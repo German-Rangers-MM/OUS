@@ -75,10 +75,10 @@ jobs:
           echo "Packed and tagged missions:"
           ls -lh ./pbos/
 
-          cd pbos
           echo "Making compressed archive of pbos directory..."
           zip -r ../pbos_${{ steps.version.outputs.version }}.zip ./*
           echo "Archive created: pbos_${{ steps.version.outputs.version }}.zip"
+          mv ../pbos_${{ steps.version.outputs.version }}.zip ./pbos/
 
 
           
