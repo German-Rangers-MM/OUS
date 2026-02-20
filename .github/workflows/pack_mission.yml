@@ -75,11 +75,10 @@ jobs:
           echo "Packed and tagged missions:"
           ls -lh ./pbos/
 
-          echo "Making compressed archive of pbos directory..."
-          zip -r ../pbos_${{ steps.version.outputs.version }}.zip ./*
-          echo "Archive created: pbos_${{ steps.version.outputs.version }}.zip"
-          mv ../pbos_${{ steps.version.outputs.version }}.zip ./pbos/
-
+      - name: Create mission archive (including subfolders)
+        run: |
+          cd pbos/
+          find . -name "*.pbo" -print | zip missions_${{ steps.version.outputs.version }}.zip -@
 
           
       - name: Upload Release Assets
