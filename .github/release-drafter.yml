@@ -12,17 +12,9 @@ categories:
       - 'bugfix'
       - 'bug'
 
-  - title: '🌐 Mission-Updates'
+  - title: '📋 Neue Mission'
     labels:
-      - 'Mission-Update'
-
-  - title: '🎯 Loadout-Updates'
-    labels:
-      - 'Loadout-Update'
-
-  - title: '📋 Packlisten-Updates'
-    labels:
-      - 'Packlisten-Update'
+      - 'new-mission'
 
   - title: '🍵 Documentation-Updates'
     labels:
@@ -30,7 +22,6 @@ categories:
       
   - title: '🧰 Repo und Workflow Maintenance'
     labels:
-      - 'root'
       - 'Repo-Update'
   
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
