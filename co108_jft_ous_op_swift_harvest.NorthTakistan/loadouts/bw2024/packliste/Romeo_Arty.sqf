@@ -356,9 +356,6 @@
     // ------------------------------------------------------------------
     // ------------------------------------------------------------------
 
-    "ace_csw_m220CarryTripod",
-    "CUP_m252_carry",
-    "ace_csw_carryMortarBaseplate",
 
     "GerRng_utils_remote_designator_d",
     "GerRng_utils_remote_designator_w",

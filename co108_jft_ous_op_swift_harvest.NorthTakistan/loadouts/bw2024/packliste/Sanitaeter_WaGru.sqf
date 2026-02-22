@@ -39,18 +39,6 @@
     // ------------------------------------------------------------------
     // ------------------------------------------------------------------
 
-    "CUP_toW2_carry",
-    "ace_csw_m220CarryTripod",
-    "GerRng_csw_M3M_carry",
-    "GerRng_csw_M3M_carry_Scope",
-    "GerRng_csw_M3M_carry_Shield",
-    "GerRng_csw_M3M_carry_ScopeShield",
-    "GerRng_csw_GraMaWa_carry",
-    "ace_csw_m3CarryTripod",
-    "ace_csw_m3CarryTripodLow",
-    "CUP_MK19_carry",
-    "CUP_m252_carry",
-    "ace_csw_carryMortarBaseplate",
 
     // ------------------------------------------------------------------
     // ------------------------------------------------------------------
@@ -143,13 +131,6 @@
     "CUP_SMAW_HEAA_M",
     "CUP_SMAW_Spotting",
 
-    "Titan_AA",
-    "Titan_AT",
-    "Titan_AP",
-
-    "Vorona_HEAT",
-    "Vorona_HE",
-
     "MRAWS_HE_F",
     "MRAWS_HEAT55_F",
     "MRAWS_HEAT_F",
@@ -158,23 +139,6 @@
     "MAA_MAAWS_MT756",
     "MAA_MAAWS_ILLUM545",
     "MAA_MAAWS_SMOKE469",
-
-    "GerRng_MAAWS_GMM_HE",
-    "GerRng_MAAWS_GMM_HEAT",
-    "GerRng_MAAWS_GMM_MT",
-    "GerRng_maaws_munitions_MAAWS_GMM_HE",
-    "GerRng_maaws_munitions_MAAWS_GMM_HEAT",
-    "GerRng_maaws_munitions_MAAWS_GMM_MT",
-
-    "CUP_compats_48Rnd_40mm_MK19_M",
-    "CUP_compats_toW2_M",
-    "ace_csw_100Rnd_127x99_mag",
-    "ace_csw_100Rnd_127x99_mag_red",
-
-    "ACE_1Rnd_82mm_Mo_HE",
-    "ACE_1Rnd_82mm_Mo_Illum",
-    "ACE_1Rnd_82mm_Mo_Smoke",
-    "ACE_1Rnd_82mm_Mo_HE_LaserGuided",
 
     // ------------------------------------------------------------------
     // ------------------------------------------------------------------
