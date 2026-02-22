@@ -1,0 +1,96 @@
+name: Package Mission and Upload to FTP Server
+
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: 'Path to the mission folder (relative to the repository root)'
+        required: true
+        default: '/'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Missions
+        uses: actions/checkout@v4
+        with:
+          path: source
+          lfs: true
+          
+      - name: Get and Transform Version
+        id: version
+        run: |
+          TAG=${{ github.event.release.tag_name }}
+          CLEAN_VERSION=$(echo "$TAG" | sed -E '
+            s/^v//;
+            s/([0-9]+)\.([0-9]+)\.([0-9]+)/\1\2\3/;
+            s/\+.*//;
+            s/-/_/;
+            s/^/v/
+          ')
+          echo "version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
+          echo "Original tag: $TAG → Clean version: $CLEAN_VERSION"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - uses: robinraju/release-downloader@v1.7
+        with:
+          repository: "German-Rangers-MM/PBO-Packer"
+          latest: true
+          fileName: "pbo-packer"
+          
+      - name: Package Missions
+        run: |
+          mkdir -p pbos
+          chmod +x ./pbo-packer
+          ./pbo-packer ./source ./pbos
+          
+          # Rename files with version
+          for pbo in ./pbos/*.pbo; do
+            base=$(basename "$pbo")
+            mission_name="${base%%.*}"
+            map_ext="${base#*.}"
+            map_name="${map_ext%.*}"
+            ext="${pbo##*.}"
+            new_name="${mission_name}_${{ steps.version.outputs.version }}.${map_name}.${ext}"
+            mv "$pbo" "./pbos/$new_name"
+          done
+
+          # Write to workflow summary
+          echo "### 🚀 Packed Missions" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Mission File | Size |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------------|------|" >> $GITHUB_STEP_SUMMARY
+          
+          for pbo in ./pbos/*.pbo; do
+            size=$(ls -lh $pbo | awk '{print $5}')
+            filename=$(basename "$pbo")
+            echo "| \`$filename\` | $size |" >> $GITHUB_STEP_SUMMARY
+          done
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Total missions:** $(ls ./pbos/*.pbo | wc -l)" >> $GITHUB_STEP_SUMMARY
+          
+          echo "Packed and tagged missions:"
+          ls -lh ./pbos/
+
+      - name: Create mission archive (including subfolders)
+        run: |
+          cd pbos/
+          find . -name "*.pbo" -print | zip missions_${{ steps.version.outputs.version }}.zip -@
+
+      - name: Upload to FTP Server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ftps
+          local-dir: ./pbos
+          
