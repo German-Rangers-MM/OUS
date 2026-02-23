@@ -7,8 +7,7 @@
     ["B_Carryall_green_F", 1],
 
     //GerRng
-    ["GerRng_maaws_munitions_MAAWS_GMM_HEAT", 2],
-    ["GerRng_maaws_munitions_MAAWS_GMM_MT", 1],
+
 
     //MAA
     ["MAA_MAAWS_HEDP502", 4],
